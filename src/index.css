@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Agricultural Chatbot Design System for Indian Farmers */
+@layer base {
+  :root {
+    /* Agricultural Indian Theme - HSL Colors */
+    --background: 45 25% 97%;
+    --foreground: 25 15% 15%;
+    
+    /* Agricultural Green Primary */
+    --primary: 135 60% 35%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 135 45% 55%;
+    --primary-dark: 135 70% 25%;
+    
+    /* Saffron Accent */
+    --accent: 35 85% 55%;
+    --accent-foreground: 0 0% 98%;
+    --accent-light: 35 70% 70%;
+    
+    /* Earthy Secondary */
+    --secondary: 30 25% 85%;
+    --secondary-foreground: 25 15% 15%;
+    
+    /* Natural Earth Tones */
+    --earth-brown: 25 35% 45%;
+    --earth-light: 25 15% 92%;
+    --earth-dark: 25 45% 25%;
+    
+    /* System Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 25 15% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 15% 15%;
+    
+    --muted: 30 15% 92%;
+    --muted-foreground: 25 25% 45%;
+    
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 30 15% 88%;
+    --input: 30 15% 88%;
+    --ring: 135 60% 35%;
+    
+    --success: 135 60% 45%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 35 85% 55%;
+    --warning-foreground: 0 0% 98%;
+    
+    --radius: 0.75rem;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-light)));
+    --gradient-earth: linear-gradient(180deg, hsl(var(--earth-light)), hsl(var(--background)));
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(var(--primary) / 0.1);
+    --shadow-medium: 0 4px 12px -2px hsl(var(--primary) / 0.15);
+    --shadow-strong: 0 8px 24px -4px hsl(var(--primary) / 0.2);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .dark {
+    --background: 25 25% 8%;
+    --foreground: 30 15% 92%;
+    
+    --primary: 135 50% 45%;
+    --primary-foreground: 0 0% 98%;
+    
+    --accent: 35 75% 60%;
+    --accent-foreground: 25 25% 8%;
+    
+    --secondary: 25 15% 15%;
+    --secondary-foreground: 30 15% 92%;
+    
+    --card: 25 20% 12%;
+    --card-foreground: 30 15% 92%;
+    
+    --border: 25 15% 20%;
+    --input: 25 15% 20%;
+    --ring: 135 50% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-normal;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Agricultural themed scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--earth-light));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary-dark));
+  }
+}
+
+@layer components {
+  /* Utility classes for agricultural theme */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .shadow-agricultural {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .transition-agricultural {
+    transition: var(--transition-smooth);
+  }
+  
+  .agricultural-pattern {
+    background-image: 
+      radial-gradient(circle at 1px 1px, hsl(var(--primary) / 0.05) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+}

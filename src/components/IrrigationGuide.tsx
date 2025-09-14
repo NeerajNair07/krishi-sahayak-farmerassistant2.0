@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Droplets, Calendar, Cloud, AlertTriangle, Info, BookOpen, Thermometer, Sun } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useTranslation } from '@/lib/translations';
+import { useTranslation, translateStageName, translateIrrigationMethodName, translateIrrigationText, translateManagementStrategyText, translateWateringSignsText, translateWeatherCondition, translateWeatherRecommendation, translateSoilMoistureLevel, translateSoilMoistureDescription, translateSoilMoistureAction } from '@/lib/translations';
 import { getCropData, getAvailableCrops, CropData } from '@/lib/cropData';
 
 interface IrrigationGuideProps {
@@ -35,7 +35,7 @@ interface SoilMoistureLevel {
 
 // Using crop data from cropData.ts
 
-const weatherConditions: WeatherCondition[] = [
+const getWeatherConditions = (language: string): WeatherCondition[] => [
   {
     condition: 'Hot & Dry',
     adjustment: 20,
@@ -63,7 +63,7 @@ const weatherConditions: WeatherCondition[] = [
   }
 ];
 
-const soilMoistureLevels: SoilMoistureLevel[] = [
+const getSoilMoistureLevels = (language: string): SoilMoistureLevel[] => [
   {
     level: 'Very Dry',
     description: 'Soil is completely dry, plants wilting',
@@ -176,6 +176,10 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
   // Get available crops for the user
   const availableCrops = farmerData?.crops ? getAvailableCrops(farmerData.crops) : [];
   
+  // Get weather conditions and soil moisture levels with translations
+  const weatherConditions = getWeatherConditions(language);
+  const soilMoistureLevels = getSoilMoistureLevels(language);
+  
   // Auto-select first crop if available
   useEffect(() => {
     if (availableCrops.length > 0 && !selectedCrop) {
@@ -249,7 +253,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                 <SelectContent>
                   {weatherConditions.map((weather) => (
                     <SelectItem key={weather.condition} value={weather.condition}>
-                      {weather.condition}
+                      {translateWeatherCondition(weather.condition, language)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -265,7 +269,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                 <SelectContent>
                   {soilMoistureLevels.map((level) => (
                     <SelectItem key={level.level} value={level.level}>
-                      {level.level}
+                      {translateSoilMoistureLevel(level.level, language)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -289,7 +293,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
             <Alert>
               <Cloud className="h-4 w-4" />
               <AlertDescription>
-                <strong>{selectedWeather} Weather:</strong> {weatherConditions.find(w => w.condition === selectedWeather)?.recommendation}
+                <strong>{translateWeatherCondition(selectedWeather, language)} Weather:</strong> {translateWeatherRecommendation(weatherConditions.find(w => w.condition === selectedWeather)?.recommendation || '', language)}
               </AlertDescription>
             </Alert>
           )}
@@ -298,7 +302,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
             <Alert>
               <Droplets className="h-4 w-4" />
               <AlertDescription>
-                <strong>{selectedSoilMoisture} Soil:</strong> {soilMoistureLevels.find(s => s.level === selectedSoilMoisture)?.action}
+                <strong>{translateSoilMoistureLevel(selectedSoilMoisture, language)} Soil:</strong> {translateSoilMoistureAction(soilMoistureLevels.find(s => s.level === selectedSoilMoisture)?.action || '', language)}
               </AlertDescription>
             </Alert>
           )}
@@ -330,7 +334,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                     return (
                       <div key={stage} className="border rounded-lg p-4">
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-semibold text-green-700">{stage}</h4>
+                          <h4 className="font-semibold text-green-700">{translateStageName(stage, language)}</h4>
                           {data.criticalPeriod && (
                             <Badge variant="destructive">{t('irrigationGuide.criticalPeriod')}</Badge>
                           )}
@@ -381,7 +385,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                     return (
                       <div key={method} className={`border rounded-lg p-4 ${isRecommended ? 'border-green-500 bg-green-50' : ''}`}>
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-semibold capitalize">{method} Irrigation</h4>
+                          <h4 className="font-semibold capitalize">{translateIrrigationMethodName(method, language)}</h4>
                           <div className="flex gap-2">
                             <Badge variant={data.suitability === 'High' ? 'default' : data.suitability === 'Moderate' ? 'secondary' : 'outline'}>
                               {data.suitability} {t('irrigationGuide.suitability')}
@@ -400,7 +404,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                               {data.pros.map((pro, index) => (
                                 <li key={index} className="flex items-center gap-2">
                                   <span className="text-green-500">✓</span>
-                                  {pro}
+                                  {translateIrrigationText(pro, language)}
                                 </li>
                               ))}
                             </ul>
@@ -411,7 +415,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                               {data.cons.map((con, index) => (
                                 <li key={index} className="flex items-center gap-2">
                                   <span className="text-red-500">✗</span>
-                                  {con}
+                                  {translateIrrigationText(con, language)}
                                 </li>
                               ))}
                             </ul>
@@ -431,7 +435,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Cloud className="h-5 w-5 text-blue-600" />
-                    {monsoonStrategies.title}
+{t('managementStrategies.monsoonManagementStrategies')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -439,7 +443,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                     {monsoonStrategies.content.map((strategy, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
                         <span className="text-blue-500 mt-1">•</span>
-                        {strategy}
+                        {translateManagementStrategyText(strategy, language)}
                       </li>
                     ))}
                   </ul>
@@ -450,7 +454,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Sun className="h-5 w-5 text-orange-600" />
-                    {droughtStrategies.title}
+{t('managementStrategies.droughtManagementStrategies')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -458,7 +462,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                     {droughtStrategies.content.map((strategy, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
                         <span className="text-orange-500 mt-1">•</span>
-                        {strategy}
+                        {translateManagementStrategyText(strategy, language)}
                       </li>
                     ))}
                   </ul>
@@ -473,29 +477,29 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <AlertTriangle className="h-5 w-5 text-red-600" />
-                    {wateringSigns.overWatering.title}
+{t('wateringSigns.signsOfOverWatering')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <h5 className="font-medium text-red-700 mb-2">Symptoms:</h5>
+                      <h5 className="font-medium text-red-700 mb-2">{t('wateringSigns.symptoms')}:</h5>
                       <ul className="space-y-1">
                         {wateringSigns.overWatering.symptoms.map((symptom, index) => (
                           <li key={index} className="flex items-start gap-2 text-sm">
                             <span className="text-red-500 mt-1">•</span>
-                            {symptom}
+                            {translateWateringSignsText(symptom, language)}
                           </li>
                         ))}
                       </ul>
                     </div>
                     <div>
-                      <h5 className="font-medium text-green-700 mb-2">Solutions:</h5>
+                      <h5 className="font-medium text-green-700 mb-2">{t('wateringSigns.solutions')}:</h5>
                       <ul className="space-y-1">
                         {wateringSigns.overWatering.solutions.map((solution, index) => (
                           <li key={index} className="flex items-start gap-2 text-sm">
                             <span className="text-green-500 mt-1">✓</span>
-                            {solution}
+                            {translateWateringSignsText(solution, language)}
                           </li>
                         ))}
                       </ul>
@@ -508,29 +512,29 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <AlertTriangle className="h-5 w-5 text-orange-600" />
-                    {wateringSigns.underWatering.title}
+{t('wateringSigns.signsOfUnderWatering')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <h5 className="font-medium text-orange-700 mb-2">Symptoms:</h5>
+                      <h5 className="font-medium text-orange-700 mb-2">{t('wateringSigns.symptoms')}:</h5>
                       <ul className="space-y-1">
                         {wateringSigns.underWatering.symptoms.map((symptom, index) => (
                           <li key={index} className="flex items-start gap-2 text-sm">
                             <span className="text-orange-500 mt-1">•</span>
-                            {symptom}
+                            {translateWateringSignsText(symptom, language)}
                           </li>
                         ))}
                       </ul>
                     </div>
                     <div>
-                      <h5 className="font-medium text-green-700 mb-2">Solutions:</h5>
+                      <h5 className="font-medium text-green-700 mb-2">{t('wateringSigns.solutions')}:</h5>
                       <ul className="space-y-1">
                         {wateringSigns.underWatering.solutions.map((solution, index) => (
                           <li key={index} className="flex items-start gap-2 text-sm">
                             <span className="text-green-500 mt-1">✓</span>
-                            {solution}
+                            {translateWateringSignsText(solution, language)}
                           </li>
                         ))}
                       </ul>

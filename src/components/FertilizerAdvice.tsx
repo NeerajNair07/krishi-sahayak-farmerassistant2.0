@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Calculator, Leaf, TrendingUp, Calendar, Droplets, Info } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useTranslation } from '@/lib/translations';
+import { useTranslation, translateStageName, translateFertilizerName, translateUnit, translateApplicationMethod } from '@/lib/translations';
 import { getCropData, getAvailableCrops, CropData } from '@/lib/cropData';
 
 interface FertilizerAdviceProps {
@@ -197,22 +197,22 @@ export const FertilizerAdvice: React.FC<FertilizerAdviceProps> = ({ language, fa
                     return (
                       <div key={key} className="border rounded-lg p-4">
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-semibold capitalize">{key.replace(/([A-Z])/g, ' $1')}</h4>
-                          <Badge variant="secondary">₹{cost}/acre</Badge>
+                          <h4 className="font-semibold capitalize">{translateFertilizerName(key.replace(/([A-Z])/g, ' $1'), language)}</h4>
+                          <Badge variant="secondary">₹{cost}</Badge>
                         </div>
                         <div className="grid grid-cols-3 gap-4 text-sm">
                           <div>
-                            <span className="text-blue-600 font-medium">N: {fertilizer.npk.N}%</span>
+                            <span className="text-blue-600 font-medium">{t('fertilizers.nitrogen')}: {fertilizer.npk.N}%</span>
                           </div>
                           <div>
-                            <span className="text-green-600 font-medium">P: {fertilizer.npk.P}%</span>
+                            <span className="text-green-600 font-medium">{t('fertilizers.phosphorus')}: {fertilizer.npk.P}%</span>
                           </div>
                           <div>
-                            <span className="text-orange-600 font-medium">K: {fertilizer.npk.K}%</span>
+                            <span className="text-orange-600 font-medium">{t('fertilizers.potassium')}: {fertilizer.npk.K}%</span>
                           </div>
                         </div>
                         <div className="mt-2 text-sm text-gray-600">
-                          {t('fertilizerAdvice.required')}: {Math.round((totalRequirement.N / fertilizer.npk.N) * 100) / 100} kg/acre
+                          {t('fertilizerAdvice.required')}: {Math.round((totalRequirement.N / fertilizer.npk.N) * 100) / 100} {translateUnit('kg', language)}
                         </div>
                       </div>
                     );
@@ -235,22 +235,22 @@ export const FertilizerAdvice: React.FC<FertilizerAdviceProps> = ({ language, fa
                     return (
                       <div key={key} className="border rounded-lg p-4">
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-semibold uppercase">{key}</h4>
-                          <Badge variant="secondary">₹{cost}/acre</Badge>
+                          <h4 className="font-semibold uppercase">{translateFertilizerName(key, language)}</h4>
+                          <Badge variant="secondary">₹{cost}</Badge>
                         </div>
                         <div className="grid grid-cols-3 gap-4 text-sm">
                           <div>
-                            <span className="text-blue-600 font-medium">N: {fertilizer.npk.N}%</span>
+                            <span className="text-blue-600 font-medium">{t('fertilizers.nitrogen')}: {fertilizer.npk.N}%</span>
                           </div>
                           <div>
-                            <span className="text-green-600 font-medium">P: {fertilizer.npk.P}%</span>
+                            <span className="text-green-600 font-medium">{t('fertilizers.phosphorus')}: {fertilizer.npk.P}%</span>
                           </div>
                           <div>
-                            <span className="text-orange-600 font-medium">K: {fertilizer.npk.K}%</span>
+                            <span className="text-orange-600 font-medium">{t('fertilizers.potassium')}: {fertilizer.npk.K}%</span>
                           </div>
                         </div>
                         <div className="mt-2 text-sm text-gray-600">
-                          {t('fertilizerAdvice.required')}: {Math.round((totalRequirement.N / fertilizer.npk.N) * 100) / 100} kg/acre
+                          {t('fertilizerAdvice.required')}: {Math.round((totalRequirement.N / fertilizer.npk.N) * 100) / 100} {translateUnit('kg', language)}
                         </div>
                       </div>
                     );
@@ -271,23 +271,23 @@ export const FertilizerAdvice: React.FC<FertilizerAdviceProps> = ({ language, fa
               <div className="space-y-4">
                 {Object.entries(getCropData(selectedCrop)!.stages).map(([stage, data]) => (
                   <div key={stage} className="border-l-4 border-green-500 pl-4">
-                    <h4 className="font-semibold text-green-700">{stage}</h4>
+                    <h4 className="font-semibold text-green-700">{translateStageName(stage, language)}</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                       <div>
-                        <span className="text-sm font-medium">NPK (kg/acre):</span>
+                        <span className="text-sm font-medium">NPK ({translateUnit('kg', language)}):</span>
                         <div className="flex gap-2 mt-1">
-                          <Badge variant="outline" className="text-blue-600">N: {data.npk.N}</Badge>
-                          <Badge variant="outline" className="text-green-600">P: {data.npk.P}</Badge>
-                          <Badge variant="outline" className="text-orange-600">K: {data.npk.K}</Badge>
+                          <Badge variant="outline" className="text-blue-600">{t('fertilizers.nitrogen')}: {data.npk.N}</Badge>
+                          <Badge variant="outline" className="text-green-600">{t('fertilizers.phosphorus')}: {data.npk.P}</Badge>
+                          <Badge variant="outline" className="text-orange-600">{t('fertilizers.potassium')}: {data.npk.K}</Badge>
                         </div>
                       </div>
                       <div>
                         <span className="text-sm font-medium">{t('fertilizerAdvice.timing')}:</span>
-                        <p className="text-sm text-gray-600">{data.timing}</p>
+                        <p className="text-sm text-gray-600">{translateApplicationMethod(data.timing, language)}</p>
                       </div>
                       <div>
                         <span className="text-sm font-medium">{t('fertilizerAdvice.application')}:</span>
-                        <p className="text-sm text-gray-600">{data.application}</p>
+                        <p className="text-sm text-gray-600">{translateApplicationMethod(data.application, language)}</p>
                       </div>
                     </div>
                   </div>

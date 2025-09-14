@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown, Minus, IndianRupee, Loader2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { useTranslation } from "@/lib/translations";
+import { useTranslation, translateStateName, translateCropName } from "@/lib/translations";
 
 interface MarketPrice {
   crop: string;
@@ -160,9 +160,9 @@ export const MarketPricesWidget: React.FC<MarketPricesWidgetProps> = ({ location
             >
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-foreground">{item.crop}</span>
+                  <span className="font-medium text-foreground">{translateCropName(item.crop, language)}</span>
                   <Badge variant="outline" className="text-xs">
-                    {item.market}
+                    {translateStateName(item.market, language)}
                   </Badge>
                   {crops && crops.some(userCrop => 
                     userCrop.toLowerCase().includes(item.crop.toLowerCase()) || 

@@ -181,35 +181,6 @@ export interface Translations {
     weatherAdjustment: string;
   };
   
-  // Farming Calendar
-  farmingCalendar: {
-    title: string;
-    description: string;
-    monthlyView: string;
-    weeklyView: string;
-    noActivitiesScheduled: string;
-    yourScheduledActivities: string;
-    addToCalendar: string;
-    markAsComplete: string;
-    cancel: string;
-    scheduled: string;
-    completed: string;
-    pending: string;
-    cancelled: string;
-    weatherAdjustment: string;
-    requiredInputs: string;
-    notes: string;
-    currentWeather: string;
-    previous: string;
-    next: string;
-    previousWeek: string;
-    nextWeek: string;
-    week: string;
-    of: string;
-    activities: string;
-    status: string;
-    scheduledFor: string;
-  };
   
   // Settings
   settings: {
@@ -342,9 +313,12 @@ export const translations: Record<string, Translations> = {
       voiceInput: "Voice Input",
       attachImage: "Attach Image",
       typing: "Typing...",
-      offline: "Offline",
-      error: "Failed to get response",
-      retry: "Retry",
+    offline: "Offline",
+    error: "Failed to get response",
+    retry: "Retry",
+    imageUploaded: "Image uploaded",
+    analyzingImage: "Analyzing image...",
+    tryWeather: "Try asking about weather!",
     },
     weather: {
       title: "Weather Forecast",
@@ -363,9 +337,11 @@ export const translations: Record<string, Translations> = {
       cloudCover: "Cloud Cover",
       day: "Day",
       night: "Night",
-      today: "Today",
-      tomorrow: "Tomorrow",
-      thisWeek: "This Week",
+    today: "Today",
+    tomorrow: "Tomorrow",
+    thisWeek: "This Week",
+    goodConditions: "Good conditions for farming activities",
+    condition: "Condition",
     },
     marketPrices: {
       title: "Market Prices",
@@ -383,6 +359,8 @@ export const translations: Record<string, Translations> = {
     stable: "Stable",
     showingPricesFor: "Showing prices for",
     tipAboveMsp: "Prices above MSP indicate good market conditions for selling",
+    yourCrop: "Your Crop",
+    showingPersonalizedData: "Showing personalized data for your crops",
     },
     quickActions: {
       title: "Quick Actions",
@@ -390,14 +368,10 @@ export const translations: Record<string, Translations> = {
       marketPrices: "Market Prices",
       fertilizerAdvice: "Fertilizer Advice",
       irrigationGuide: "Irrigation Guide",
-      farmingCalendar: "Farming Calendar",
-      cropDiseaseId: "Crop Disease ID",
       getForecast: "Get 7-day forecast",
       livePrices: "Live crop prices",
       nutritionTips: "Crop nutrition tips",
       waterManagement: "Water management",
-      sowingHarvest: "Sowing & harvest dates",
-      imageAnalysis: "AI image analysis",
     },
     fertilizerAdvice: {
       title: "Fertilizer Advice Calculator",
@@ -443,34 +417,6 @@ export const translations: Record<string, Translations> = {
       recommended: "Recommended",
       criticalPeriod: "Critical Period",
       weatherAdjustment: "Weather adjustment",
-    },
-    farmingCalendar: {
-      title: "Farming Calendar",
-      description: "Plan and track your farming activities with personalized crop schedules and weather-based adjustments",
-      monthlyView: "Monthly View",
-      weeklyView: "Weekly View",
-      noActivitiesScheduled: "No Activities Scheduled",
-      yourScheduledActivities: "Your Scheduled Activities",
-      addToCalendar: "Add to Calendar",
-      markAsComplete: "Mark as Complete",
-      cancel: "Cancel",
-      scheduled: "Scheduled",
-      completed: "Completed",
-      pending: "Pending",
-      cancelled: "Cancelled",
-      weatherAdjustment: "Weather Adjustment",
-      requiredInputs: "Required Inputs",
-      notes: "Notes",
-      currentWeather: "Current Weather",
-      previous: "Previous",
-      next: "Next",
-      previousWeek: "Previous Week",
-      nextWeek: "Next Week",
-      week: "Week",
-      of: "of",
-      activities: "Activities",
-      status: "Status",
-      scheduledFor: "Scheduled for",
     },
     settings: {
       title: "Settings",
@@ -599,6 +545,9 @@ export const translations: Record<string, Translations> = {
       offline: "ऑफलाइन",
       error: "प्रतिक्रिया प्राप्त करने में विफल",
       retry: "पुनः प्रयास करें",
+      imageUploaded: "छवि अपलोड की गई",
+      analyzingImage: "छवि का विश्लेषण कर रहे हैं...",
+      tryWeather: "मौसम के बारे में पूछने की कोशिश करें!",
     },
     weather: {
       title: "मौसम पूर्वानुमान",
@@ -620,6 +569,8 @@ export const translations: Record<string, Translations> = {
       today: "आज",
       tomorrow: "कल",
       thisWeek: "इस सप्ताह",
+      goodConditions: "कृषि गतिविधियों के लिए अच्छी स्थिति",
+      condition: "स्थिति",
     },
     marketPrices: {
       title: "बाजार मूल्य",
@@ -637,6 +588,8 @@ export const translations: Record<string, Translations> = {
     stable: "स्थिर",
     showingPricesFor: "के लिए मूल्य दिखा रहे हैं",
     tipAboveMsp: "MSP से ऊपर कीमतें बेचने के लिए अच्छी बाजार स्थिति का संकेत देती हैं",
+    yourCrop: "आपकी फसल",
+    showingPersonalizedData: "आपकी फसलों के लिए व्यक्तिगत डेटा दिखा रहे हैं",
     },
     quickActions: {
       title: "त्वरित कार्य",
@@ -644,14 +597,10 @@ export const translations: Record<string, Translations> = {
       marketPrices: "बाजार मूल्य",
       fertilizerAdvice: "उर्वरक सलाह",
       irrigationGuide: "सिंचाई गाइड",
-      farmingCalendar: "कृषि कैलेंडर",
-      cropDiseaseId: "फसल रोग पहचान",
       getForecast: "7-दिन का पूर्वानुमान प्राप्त करें",
       livePrices: "लाइव फसल मूल्य",
       nutritionTips: "फसल पोषण सुझाव",
       waterManagement: "जल प्रबंधन",
-      sowingHarvest: "बुवाई और कटाई की तारीखें",
-      imageAnalysis: "AI छवि विश्लेषण",
     },
     fertilizerAdvice: {
       title: "उर्वरक सलाह कैलकुलेटर",
@@ -697,34 +646,6 @@ export const translations: Record<string, Translations> = {
       recommended: "अनुशंसित",
       criticalPeriod: "महत्वपूर्ण अवधि",
       weatherAdjustment: "मौसम समायोजन",
-    },
-    farmingCalendar: {
-      title: "कृषि कैलेंडर",
-      description: "व्यक्तिगत फसल अनुसूची और मौसम-आधारित समायोजन के साथ अपनी कृषि गतिविधियों की योजना बनाएं और ट्रैक करें",
-      monthlyView: "मासिक दृश्य",
-      weeklyView: "साप्ताहिक दृश्य",
-      noActivitiesScheduled: "कोई गतिविधि निर्धारित नहीं",
-      yourScheduledActivities: "आपकी निर्धारित गतिविधियां",
-      addToCalendar: "कैलेंडर में जोड़ें",
-      markAsComplete: "पूर्ण के रूप में चिह्नित करें",
-      cancel: "रद्द करें",
-      scheduled: "निर्धारित",
-      completed: "पूर्ण",
-      pending: "लंबित",
-      cancelled: "रद्द",
-      weatherAdjustment: "मौसम समायोजन",
-      requiredInputs: "आवश्यक इनपुट",
-      notes: "नोट्स",
-      currentWeather: "वर्तमान मौसम",
-      previous: "पिछला",
-      next: "अगला",
-      previousWeek: "पिछला सप्ताह",
-      nextWeek: "अगला सप्ताह",
-      week: "सप्ताह",
-      of: "का",
-      activities: "गतिविधियां",
-      status: "स्थिति",
-      scheduledFor: "के लिए निर्धारित",
     },
     settings: {
       title: "सेटिंग्स",
@@ -808,9 +729,9 @@ export const translations: Record<string, Translations> = {
       profile: "சுயவிவரம்",
       logout: "வெளியேறு",
       notifications: "அறிவிப்புகள்",
-    help: "உதவி",
-    about: "பற்றி",
-    tip: "குறிப்பு",
+      help: "உதவி",
+      about: "பற்றி",
+      tip: "குறிப்பு",
     },
     navigation: {
       dashboard: "டாஷ்போர்டு",
@@ -853,6 +774,9 @@ export const translations: Record<string, Translations> = {
       offline: "ஆஃப்லைன்",
       error: "பதிலை பெற முடியவில்லை",
       retry: "மீண்டும் முயற்சி",
+      imageUploaded: "படம் பதிவேற்றப்பட்டது",
+      analyzingImage: "படத்தை பகுப்பாய்வு செய்கிறது...",
+      tryWeather: "வானிலை பற்றி கேட்க முயற்சிக்கவும்!",
     },
     weather: {
       title: "வானிலை முன்னறிவிப்பு",
@@ -874,6 +798,8 @@ export const translations: Record<string, Translations> = {
       today: "இன்று",
       tomorrow: "நாளை",
       thisWeek: "இந்த வாரம்",
+      goodConditions: "விவசாய நடவடிக்கைகளுக்கு நல்ல நிலைமைகள்",
+      condition: "நிலை",
     },
     marketPrices: {
       title: "சந்தை விலைகள்",
@@ -886,11 +812,13 @@ export const translations: Record<string, Translations> = {
       lastUpdated: "கடைசியாக புதுப்பிக்கப்பட்டது",
       pricePerQuintal: "ஒரு குவிண்டலுக்கு விலை",
       pricePerKg: "ஒரு கிலோவுக்கு விலை",
-    up: "மேலே",
-    down: "கீழே",
-    stable: "நிலையான",
-    showingPricesFor: "க்கான விலைகளைக் காட்டுகிறது",
-    tipAboveMsp: "MSP-க்கு மேல் விலைகள் விற்பனைக்கு நல்ல சந்தை நிலைமைகளைக் குறிக்கின்றன",
+      up: "மேலே",
+      down: "கீழே",
+      stable: "நிலையான",
+      showingPricesFor: "க்கான விலைகளைக் காட்டுகிறது",
+      tipAboveMsp: "MSP-க்கு மேல் விலைகள் விற்பனைக்கு நல்ல சந்தை நிலைமைகளைக் குறிக்கின்றன",
+      yourCrop: "உங்கள் பயிர்",
+      showingPersonalizedData: "உங்கள் பயிர்களுக்கான தனிப்பட்ட தரவைக் காட்டுகிறது",
     },
     quickActions: {
       title: "விரைவு செயல்கள்",
@@ -898,14 +826,55 @@ export const translations: Record<string, Translations> = {
       marketPrices: "சந்தை விலைகள்",
       fertilizerAdvice: "உர அறிவுரை",
       irrigationGuide: "பாசன வழிகாட்டி",
-      farmingCalendar: "விவசாய காலண்டர்",
-      cropDiseaseId: "பயிர் நோய் அடையாளம்",
       getForecast: "7-நாள் முன்னறிவிப்பை பெறவும்",
       livePrices: "நேரடி பயிர் விலைகள்",
       nutritionTips: "பயிர் ஊட்டச்சத்து குறிப்புகள்",
       waterManagement: "நீர் மேலாண்மை",
-      sowingHarvest: "விதைத்தல் மற்றும் அறுவடை தேதிகள்",
-      imageAnalysis: "AI பட பகுப்பாய்வு",
+    },
+    fertilizerAdvice: {
+      title: "உர அறிவுரை கணிப்பான்",
+      description: "உங்கள் பயிர் மற்றும் மண் வகையின் அடிப்படையில் தனிப்பட்ட உர பரிந்துரைகளைப் பெறவும்",
+      selectCrop: "பயிர் தேர்ந்தெடுக்கவும்",
+      selectSoil: "மண் வகை",
+      landSize: "நில அளவு (ஏக்கர்)",
+      organicOptions: "இயற்கை விருப்பங்கள்",
+      syntheticOptions: "செயற்கை விருப்பங்கள்",
+      applicationSchedule: "பயன்பாட்டு அட்டவணை",
+      totalRequirements: "மொத்த தேவைகள் சுருக்கம்",
+      costPerAcre: "ஏக்கருக்கு செலவு",
+      required: "தேவை",
+      timing: "நேரம்",
+      application: "பயன்பாடு",
+      totalNpkRequirement: "க்கான மொத்த NPK தேவை",
+      nitrogen: "நைட்ரஜன் (N)",
+      phosphorus: "பாஸ்பரஸ் (P)",
+      potassium: "பொட்டாசியம் (K)",
+      acres: "ஏக்கர்",
+      soilCharacteristics: "மண் பண்புகள்",
+      recommendation: "பரிந்துரை",
+    },
+    irrigationGuide: {
+      title: "பாசன வழிகாட்டி",
+      description: "உங்கள் பயிர், வானிலை மற்றும் மண் நிலைமைகளின் அடிப்படையில் தனிப்பட்ட பாசன பரிந்துரைகளைப் பெறவும்",
+      selectCrop: "பயிர் தேர்ந்தெடுக்கவும்",
+      weatherCondition: "வானிலை நிலை",
+      soilMoisture: "மண் ஈரப்பதம்",
+      plantCount: "தாவர எண்ணிக்கை",
+      waterRequirements: "நீர் தேவைகள்",
+      irrigationMethods: "பாசன முறைகள்",
+      managementStrategies: "மேலாண்மை உத்திகள்",
+      wateringSigns: "நீர்ப்பாசன அறிகுறிகள்",
+      dailyWater: "தினசரி நீர்",
+      frequency: "அதிர்வெண்",
+      duration: "காலம்",
+      perPlant: "ஒரு தாவரத்திற்கு",
+      efficiency: "திறன்",
+      suitability: "பொருத்தம்",
+      advantages: "நன்மைகள்",
+      disadvantages: "குறைபாடுகள்",
+      recommended: "பரிந்துரைக்கப்பட்டது",
+      criticalPeriod: "முக்கிய காலம்",
+      weatherAdjustment: "வானிலை சரிசெய்தல்",
     },
     settings: {
       title: "அமைப்புகள்",

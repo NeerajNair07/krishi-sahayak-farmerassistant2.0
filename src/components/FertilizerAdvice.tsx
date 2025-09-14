@@ -122,7 +122,7 @@ export const FertilizerAdvice: React.FC<FertilizerAdviceProps> = ({ language, fa
               <label className="text-sm font-medium">{t('fertilizerAdvice.selectCrop')}</label>
               <Select value={selectedCrop} onValueChange={setSelectedCrop}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Choose crop type" />
+                  <SelectValue placeholder={t('fertilizerAdvice.selectCrop')} />
                 </SelectTrigger>
                 <SelectContent>
                   {availableCrops.map((crop) => (
@@ -138,7 +138,7 @@ export const FertilizerAdvice: React.FC<FertilizerAdviceProps> = ({ language, fa
               <label className="text-sm font-medium">{t('fertilizerAdvice.selectSoil')}</label>
               <Select value={selectedSoil} onValueChange={setSelectedSoil}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Choose soil type" />
+                  <SelectValue placeholder={t('fertilizerAdvice.selectSoil')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="red">Red Soil</SelectItem>
@@ -212,7 +212,7 @@ export const FertilizerAdvice: React.FC<FertilizerAdviceProps> = ({ language, fa
                           </div>
                         </div>
                         <div className="mt-2 text-sm text-gray-600">
-                          Required: {Math.round((totalRequirement.N / fertilizer.npk.N) * 100) / 100} kg/acre
+                          {t('fertilizerAdvice.required')}: {Math.round((totalRequirement.N / fertilizer.npk.N) * 100) / 100} kg/acre
                         </div>
                       </div>
                     );
@@ -250,7 +250,7 @@ export const FertilizerAdvice: React.FC<FertilizerAdviceProps> = ({ language, fa
                           </div>
                         </div>
                         <div className="mt-2 text-sm text-gray-600">
-                          Required: {Math.round((totalRequirement.N / fertilizer.npk.N) * 100) / 100} kg/acre
+                          {t('fertilizerAdvice.required')}: {Math.round((totalRequirement.N / fertilizer.npk.N) * 100) / 100} kg/acre
                         </div>
                       </div>
                     );
@@ -282,11 +282,11 @@ export const FertilizerAdvice: React.FC<FertilizerAdviceProps> = ({ language, fa
                         </div>
                       </div>
                       <div>
-                        <span className="text-sm font-medium">Timing:</span>
+                        <span className="text-sm font-medium">{t('fertilizerAdvice.timing')}:</span>
                         <p className="text-sm text-gray-600">{data.timing}</p>
                       </div>
                       <div>
-                        <span className="text-sm font-medium">Application:</span>
+                        <span className="text-sm font-medium">{t('fertilizerAdvice.application')}:</span>
                         <p className="text-sm text-gray-600">{data.application}</p>
                       </div>
                     </div>

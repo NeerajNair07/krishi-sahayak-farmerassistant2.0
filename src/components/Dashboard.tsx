@@ -8,7 +8,6 @@ import { MarketPricesWidget } from './MarketPricesWidget';
 import { ChatInterface } from './ChatInterface';
 import { FertilizerAdvice } from './FertilizerAdvice';
 import { IrrigationGuide } from './IrrigationGuide';
-import { FarmingCalendar } from './FarmingCalendar';
 import { LanguageSelector } from './LanguageSelector';
 import { ProfileEdit } from './ProfileEdit';
 import { Settings } from './Settings';
@@ -18,8 +17,6 @@ import {
   Cloud, 
   TrendingUp, 
   MessageCircle, 
-  Calendar,
-  Camera,
   Leaf,
   Droplets,
   Sprout,
@@ -78,20 +75,6 @@ const quickActions = [
     color: 'bg-earth-brown', 
     description: 'Water management' 
   },
-  { 
-    id: 'calendar', 
-    label: 'Farming Calendar', 
-    icon: Calendar, 
-    color: 'bg-warning', 
-    description: 'Sowing & harvest dates' 
-  },
-  { 
-    id: 'identify', 
-    label: 'Crop Disease ID', 
-    icon: Camera, 
-    color: 'bg-destructive', 
-    description: 'AI image analysis' 
-  },
 ];
 
 export const Dashboard: React.FC<DashboardProps> = ({ 
@@ -135,17 +118,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
       case 'irrigation':
         setActiveWidget('irrigation');
         break;
-      case 'calendar':
-        setActiveWidget('calendar');
-        break;
-      case 'identify':
-        // Show toast for features coming soon
-        const { toast } = await import('@/hooks/use-toast');
-        toast({
-          title: t('common.error'),
-          description: `${quickActions.find(a => a.id === actionId)?.label} will be available once backend APIs are integrated.`,
-        });
-        break;
       default:
         setActiveWidget('chat');
     }
@@ -161,8 +133,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
     market: 'quickActions.marketPrices',
     fertilizer: 'quickActions.fertilizerAdvice',
     irrigation: 'quickActions.irrigationGuide',
-    calendar: 'quickActions.farmingCalendar',
-    identify: 'quickActions.cropDiseaseId',
   };
 
   const quickActionDescKey: Record<string, string> = {
@@ -170,8 +140,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
     market: 'quickActions.livePrices',
     fertilizer: 'quickActions.nutritionTips',
     irrigation: 'quickActions.waterManagement',
-    calendar: 'quickActions.sowingHarvest',
-    identify: 'quickActions.imageAnalysis',
   };
 
   const renderActiveWidget = () => {
@@ -202,16 +170,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
           farmerData={{
             crops: currentFarmerData.crops,
             location: currentFarmerData.location,
-          }}
-        />;
-      case 'calendar':
-        return <FarmingCalendar 
-          language={language}
-          farmerData={{
-            crops: currentFarmerData.crops,
-            location: currentFarmerData.location,
-            latitude: currentFarmerData.latitude,
-            longitude: currentFarmerData.longitude,
           }}
         />;
       default:

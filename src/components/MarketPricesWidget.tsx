@@ -169,7 +169,7 @@ export const MarketPricesWidget: React.FC<MarketPricesWidgetProps> = ({ location
                     item.crop.toLowerCase().includes(userCrop.toLowerCase())
                   ) && (
                     <Badge variant="default" className="text-xs">
-                      Your Crop
+                      {t('marketPrices.yourCrop')}
                     </Badge>
                   )}
                 </div>
@@ -199,7 +199,7 @@ export const MarketPricesWidget: React.FC<MarketPricesWidgetProps> = ({ location
           </p>
           {crops && crops.length > 0 && (
             <p className="text-xs text-muted-foreground text-center mt-1">
-              Showing personalized data for your crops: {crops.join(', ')}
+              {t('marketPrices.showingPersonalizedData')}: {crops.join(', ')}
             </p>
           )}
         </div>

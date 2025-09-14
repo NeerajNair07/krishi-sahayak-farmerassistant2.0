@@ -220,7 +220,7 @@ export const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitud
 
         <div className="text-center p-2 bg-primary/10 rounded-lg">
           <p className="text-sm text-primary font-medium">
-            🌤️ {weatherData.current.condition} - Good conditions for farming activities
+            🌤️ {weatherData.current.condition} - {t('weather.goodConditions')}
           </p>
           {weatherData.current.location && (
             <p className="text-xs text-muted-foreground mt-1">

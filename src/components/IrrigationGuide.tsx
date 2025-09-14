@@ -228,7 +228,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
               <label className="text-sm font-medium">{t('irrigationGuide.selectCrop')}</label>
               <Select value={selectedCrop} onValueChange={setSelectedCrop}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Choose crop" />
+                  <SelectValue placeholder={t('irrigationGuide.selectCrop')} />
                 </SelectTrigger>
                 <SelectContent>
                   {availableCrops.map((crop) => (
@@ -244,7 +244,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
               <label className="text-sm font-medium">{t('irrigationGuide.weatherCondition')}</label>
               <Select value={selectedWeather} onValueChange={setSelectedWeather}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select weather" />
+                  <SelectValue placeholder={t('irrigationGuide.weatherCondition')} />
                 </SelectTrigger>
                 <SelectContent>
                   {weatherConditions.map((weather) => (
@@ -260,7 +260,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
               <label className="text-sm font-medium">{t('irrigationGuide.soilMoisture')}</label>
               <Select value={selectedSoilMoisture} onValueChange={setSelectedSoilMoisture}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select moisture" />
+                  <SelectValue placeholder={t('irrigationGuide.soilMoisture')} />
                 </SelectTrigger>
                 <SelectContent>
                   {soilMoistureLevels.map((level) => (
@@ -332,30 +332,30 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                         <div className="flex justify-between items-start mb-2">
                           <h4 className="font-semibold text-green-700">{stage}</h4>
                           {data.criticalPeriod && (
-                            <Badge variant="destructive">Critical Period</Badge>
+                            <Badge variant="destructive">{t('irrigationGuide.criticalPeriod')}</Badge>
                           )}
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                           <div>
-                            <span className="text-sm font-medium">Daily Water:</span>
-                            <p className="text-lg font-bold text-blue-600">{dailyRequirement} L</p>
-                          </div>
-                          <div>
-                            <span className="text-sm font-medium">Frequency:</span>
-                            <p className="text-sm text-gray-600">{data.frequency}</p>
-                          </div>
-                          <div>
-                            <span className="text-sm font-medium">Duration:</span>
-                            <p className="text-sm text-gray-600">{data.duration}</p>
-                          </div>
-                          <div>
-                            <span className="text-sm font-medium">Per Plant:</span>
-                            <p className="text-sm text-gray-600">{data.waterRequirement} L/day</p>
-                          </div>
+                          <span className="text-sm font-medium">{t('irrigationGuide.dailyWater')}:</span>
+                          <p className="text-lg font-bold text-blue-600">{dailyRequirement} L</p>
+                        </div>
+                        <div>
+                          <span className="text-sm font-medium">{t('irrigationGuide.frequency')}:</span>
+                          <p className="text-sm text-gray-600">{data.frequency}</p>
+                        </div>
+                        <div>
+                          <span className="text-sm font-medium">{t('irrigationGuide.duration')}:</span>
+                          <p className="text-sm text-gray-600">{data.duration}</p>
+                        </div>
+                        <div>
+                          <span className="text-sm font-medium">{t('irrigationGuide.perPlant')}:</span>
+                          <p className="text-sm text-gray-600">{data.waterRequirement} L/day</p>
+                        </div>
                         </div>
                         {weatherAdjustment !== 0 && (
                           <div className="mt-2 text-sm text-orange-600">
-                            Weather adjustment: {weatherAdjustment > 0 ? '+' : ''}{weatherAdjustment}%
+                            {t('irrigationGuide.weatherAdjustment')}: {weatherAdjustment > 0 ? '+' : ''}{weatherAdjustment}%
                           </div>
                         )}
                       </div>
@@ -384,18 +384,18 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                           <h4 className="font-semibold capitalize">{method} Irrigation</h4>
                           <div className="flex gap-2">
                             <Badge variant={data.suitability === 'High' ? 'default' : data.suitability === 'Moderate' ? 'secondary' : 'outline'}>
-                              {data.suitability} Suitability
+                              {data.suitability} {t('irrigationGuide.suitability')}
                             </Badge>
-                            {isRecommended && <Badge variant="default">Recommended</Badge>}
+                            {isRecommended && <Badge variant="default">{t('irrigationGuide.recommended')}</Badge>}
                           </div>
                         </div>
                         <div className="mb-3">
-                          <span className="text-sm font-medium">Efficiency: </span>
+                          <span className="text-sm font-medium">{t('irrigationGuide.efficiency')}: </span>
                           <span className="text-lg font-bold text-blue-600">{data.efficiency}%</span>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <h5 className="font-medium text-green-700 mb-2">Advantages:</h5>
+                            <h5 className="font-medium text-green-700 mb-2">{t('irrigationGuide.advantages')}:</h5>
                             <ul className="text-sm space-y-1">
                               {data.pros.map((pro, index) => (
                                 <li key={index} className="flex items-center gap-2">
@@ -406,7 +406,7 @@ export const IrrigationGuide: React.FC<IrrigationGuideProps> = ({ language, farm
                             </ul>
                           </div>
                           <div>
-                            <h5 className="font-medium text-red-700 mb-2">Disadvantages:</h5>
+                            <h5 className="font-medium text-red-700 mb-2">{t('irrigationGuide.disadvantages')}:</h5>
                             <ul className="text-sm space-y-1">
                               {data.cons.map((con, index) => (
                                 <li key={index} className="flex items-center gap-2">

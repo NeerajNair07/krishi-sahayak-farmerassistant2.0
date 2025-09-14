@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Mic, Send, Image, Paperclip, Bot, User, MicOff, Cloud, Thermometer, Droplets } from 'lucide-react';
+import { Send, Image, Paperclip, Bot, User, Cloud, Thermometer, Droplets } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "@/lib/translations";
@@ -71,7 +71,6 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ language, farmerDa
     },
   ]);
   const [newMessage, setNewMessage] = useState('');
-  const [isListening, setIsListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -114,36 +113,36 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ language, farmerDa
       <div className="bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 p-4 rounded-lg space-y-4">
         <div className="flex items-center gap-2 text-lg font-semibold">
           <Cloud className="h-5 w-5 text-blue-500" />
-          Current Weather - {current.location}
+          {t('weather.currentWeather')} - {current.location}
         </div>
         
         <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center gap-2">
             <Thermometer className="h-4 w-4 text-red-500" />
-            <span className="text-sm">Temperature: {current.temperature}°C</span>
+            <span className="text-sm">{t('weather.temperature')}: {current.temperature}°C</span>
           </div>
           <div className="flex items-center gap-2">
             <Droplets className="h-4 w-4 text-blue-500" />
-            <span className="text-sm">Humidity: {current.humidity}%</span>
+            <span className="text-sm">{t('weather.humidity')}: {current.humidity}%</span>
           </div>
           <div className="flex items-center gap-2">
             <Cloud className="h-4 w-4 text-gray-500" />
-            <span className="text-sm">Condition: {current.condition}</span>
+            <span className="text-sm">{t('weather.condition')}: {current.condition}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm">Wind: {current.windSpeed} km/h</span>
+            <span className="text-sm">{t('weather.windSpeed')}: {current.windSpeed} km/h</span>
           </div>
         </div>
 
         {current.rainfall > 0 && (
           <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded text-sm">
-            🌧️ Rainfall: {current.rainfall}mm
+            🌧️ {t('weather.precipitation')}: {current.rainfall}mm
           </div>
         )}
 
         {forecast && (
           <div>
-            <h4 className="font-medium mb-2">7-Day Forecast</h4>
+            <h4 className="font-medium mb-2">{t('weather.forecast')}</h4>
             <div className="grid grid-cols-7 gap-1 text-xs">
               {forecast.labels.map((day: string, index: number) => (
                 <div key={index} className="text-center bg-white/50 dark:bg-black/20 p-2 rounded">
@@ -465,46 +464,6 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ language, farmerDa
     }
   };
 
-  const handleVoiceInput = () => {
-    if (!('webkitSpeechRecognition' in window)) {
-      toast({
-        title: t('common.error'),
-        description: "Your browser doesn't support voice input.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const recognition = new (window as any).webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = language === 'hi' ? 'hi-IN' : language === 'ta' ? 'ta-IN' : 'en-IN';
-
-    recognition.onstart = () => {
-      setIsListening(true);
-    };
-
-    recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript;
-      setNewMessage(transcript);
-      setIsListening(false);
-    };
-
-    recognition.onerror = () => {
-      setIsListening(false);
-      toast({
-        title: t('common.error'),
-        description: "Could not capture your voice. Please try again.",
-        variant: "destructive",
-      });
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    recognition.start();
-  };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -556,7 +515,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ language, farmerDa
                           alt="Uploaded image" 
                           className="max-w-full h-auto rounded-md max-h-48 object-contain"
                         />
-                        <p className="text-xs opacity-75">Image uploaded</p>
+                        <p className="text-xs opacity-75">{t('chat.imageUploaded')}</p>
                       </div>
                     ) : message.sender === 'bot' ? (
                       renderBotMessage(message.content, message.weatherData)
@@ -596,7 +555,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ language, farmerDa
                     <div className="w-2 h-2 bg-primary rounded-full animate-bounce delay-200"></div>
                     {isUploadingImage && (
                       <span className="ml-2 text-xs text-muted-foreground">
-                        Analyzing image...
+                        {t('chat.analyzingImage')}
                       </span>
                     )}
                   </div>
@@ -615,19 +574,10 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ language, farmerDa
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder={t('chat.placeholder') + ' (Try asking about weather!)'}
+                placeholder={t('chat.placeholder') + ' (' + t('chat.tryWeather') + ')'}
                 className="flex-1"
                 disabled={isLoading || isUploadingImage}
               />
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={handleVoiceInput}
-                disabled={isLoading || isUploadingImage}
-                className={isListening ? 'bg-accent text-accent-foreground' : ''}
-              >
-                {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-              </Button>
               <input
                 type="file"
                 ref={fileInputRef}

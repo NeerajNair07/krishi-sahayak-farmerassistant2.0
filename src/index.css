@@ -149,4 +149,18 @@
       radial-gradient(circle at 1px 1px, hsl(var(--primary) / 0.05) 1px, transparent 0);
     background-size: 20px 20px;
   }
+
+  /* Floating animation for homepage icons */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
 }

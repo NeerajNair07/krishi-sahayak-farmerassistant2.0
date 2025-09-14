@@ -4,15 +4,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Sprout, Mail, Lock, User } from 'lucide-react';
+import { Sprout, Mail, Lock, User, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
 interface AuthProps {
   onAuthSuccess: () => void;
+  onBackToHome?: () => void;
 }
 
-export const Auth: React.FC<AuthProps> = ({ onAuthSuccess }) => {
+export const Auth: React.FC<AuthProps> = ({ onAuthSuccess, onBackToHome }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [signInForm, setSignInForm] = useState({ email: '', password: '' });
   const [signUpForm, setSignUpForm] = useState({ email: '', password: '', confirmPassword: '' });
@@ -110,10 +111,24 @@ export const Auth: React.FC<AuthProps> = ({ onAuthSuccess }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
+        {/* Back Button */}
+        {onBackToHome && (
+          <div className="mb-6">
+            <Button
+              variant="ghost"
+              onClick={onBackToHome}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Button>
+          </div>
+        )}
+        
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Sprout className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">FarmAssist</h1>
+            <h1 className="text-2xl font-bold text-foreground">Krishi Sahayak</h1>
           </div>
           <p className="text-muted-foreground">Your intelligent farming companion</p>
         </div>

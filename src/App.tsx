@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import { FarmerRegistration } from './components/FarmerRegistration';
 import { Dashboard } from './components/Dashboard';
 import { Auth } from './pages/Auth';
+import { HomePage } from './components/HomePage';
 import { supabase } from '@/integrations/supabase/client';
 
 interface FarmerData {
@@ -30,6 +31,7 @@ const AppContent = () => {
   const [farmerData, setFarmerData] = useState<FarmerData | null>(null);
   const [language, setLanguage] = useState('en');
   const [loading, setLoading] = useState(true);
+  const [showHomePage, setShowHomePage] = useState(true);
 
   useEffect(() => {
     // Set up auth state listener
@@ -74,6 +76,7 @@ const AppContent = () => {
           setUser(null);
           setFarmerData(null);
           setIsRegistered(false);
+          setShowHomePage(true); // Show homepage when no user
         }
         setLoading(false);
       }
@@ -85,6 +88,9 @@ const AppContent = () => {
       setUser(session?.user ?? null);
       if (!session) {
         setLoading(false);
+        setShowHomePage(true); // Show homepage if no session
+      } else {
+        setShowHomePage(false); // Hide homepage if user is already logged in
       }
     });
 
@@ -108,6 +114,14 @@ const AppContent = () => {
     // Auth state change will handle the rest
   };
 
+  const handleNavigateToAuth = () => {
+    setShowHomePage(false);
+  };
+
+  const handleBackToHome = () => {
+    setShowHomePage(true);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 flex items-center justify-center">
@@ -119,8 +133,12 @@ const AppContent = () => {
     );
   }
 
+  if (showHomePage) {
+    return <HomePage onNavigateToAuth={handleNavigateToAuth} />;
+  }
+
   if (!user) {
-    return <Auth onAuthSuccess={handleAuthSuccess} />;
+    return <Auth onAuthSuccess={handleAuthSuccess} onBackToHome={handleBackToHome} />;
   }
 
   if (!isRegistered) {
